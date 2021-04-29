@@ -1,6 +1,6 @@
 
 const gameBoard = (() => {
-    let board = [];
+    let board = ['O','X','X','','O','X','','',''];
 
     const push = (position, player) => {
         if (player == 'X') {
@@ -13,7 +13,14 @@ const gameBoard = (() => {
 
     const showBoard = () => console.log(board);
 
-    return {push, showBoard};
+    const isBlank = (index) => {
+        if (board[index] == '') {
+            return true
+        }
+        else return false;
+    }
+
+    return {board, push, showBoard, isBlank};
 }
 )();
 
@@ -26,3 +33,17 @@ const player = (pname,choice) => {
     const start = ()
 }
 )(); */
+
+
+const display = () => {
+gridItems = document.querySelector('.grid-container').getElementsByTagName("div");
+
+for (i = 0; i < 9; i++) {
+    if (!gameBoard.isBlank(i)) {
+        gridItems[i].innerText = gameBoard.board[i];
+    }
+}
+}
+
+display();
+

@@ -56,6 +56,17 @@ table {
 	
 }
 
+.grid-container div {
+	color: darkslategray;
+	font-family: Arial, Helvetica, sans-serif;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 100px;
+	font-size: 400%;
+	width:100px;
+	height:100px;
+}
+
 h1 {
 	height: 70px;
 	text-align: center;
