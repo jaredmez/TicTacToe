@@ -21,3 +21,8 @@ const gameBoard = (() => {
 const player = (pname,choice) => {
     return {pname, choice}
 }
+
+/* const gameControl = (() => {
+    const start = ()
+}
+)(); */
