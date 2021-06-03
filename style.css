@@ -56,7 +56,7 @@ table {
 	
 }
 
-.grid-container div {
+.grid-container button {
 	color: darkslategray;
 	font-family: Arial, Helvetica, sans-serif;
 	text-align: center;
@@ -65,7 +65,15 @@ table {
 	font-size: 400%;
 	width:100px;
 	height:100px;
+	outline-style:none;
+	box-shadow: none;
+	padding: 0;
 }
+
+button {
+	border:none;
+}
+
 
 h1 {
 	height: 70px;
