@@ -1,8 +1,11 @@
 
 const gameBoard = (() => {
     let board = ['','','','','','','','',''];
+    let moveCounter=0;
 
     const push = (position, player) => {
+        moveCounter++;
+        console.log(moveCounter);
         if (player == 'X') {
             board[position] = 'X'
         }
@@ -11,34 +14,53 @@ const gameBoard = (() => {
         }
     };
 
-    const showBoard = () => console.log(board);
+    const showBoard = (status) => {
+        let statusEl = document.querySelector(".gameStatus");
+        statusEl.innerHTML=status;
+
+    };
 
     const check = () => {
+       
         if (board[0] != '' && board[0]===board[1] && board[0] === board[2]) {
-            console.log('we have a winner')
+            return board[0]
         }
         else if (board[3] != '' && board[3]===board[4] && board[3] === board[5]) {
-            console.log('we have a winner')
+            return board[3]
         }
         else if (board[6] != '' && board[6]===board[7] && board[6] === board[8]) {
-            console.log('we have a winner')
+            return board[6]
         }
         else if (board[0] != '' && board[0]===board[3] && board[0] === board[6]) {
-            console.log('we have a winner')
+            return board[0]
         }
         else if (board[1] != '' && board[1]===board[4] && board[1] === board[7]) {
-            console.log('we have a winner')
+            return board[1]
         }
         else if (board[2] != '' && board[2]===board[5] && board[2] === board[8]) {
-            console.log('we have a winner')
+            return board[2]
         }
         else if (board[0] != '' && board[0]===board[4] && board[0] === board[8]) {
-            console.log('we have a winner')
+            return board[0]
         }
         else if (board[2] != '' && board[2]===board[4] && board[2] === board[6]) {
-            console.log('we have a winner')
+            return board[2]
         }
+        else return false;
+
     };
+
+    const presentResult = (currentMove) => {
+        if (moveCounter ===9 && check()===false) {
+            showBoard('Result= Tie!')
+        }
+        else if (check()===false) {
+            console.log(currentMove + 's turn');
+        }
+        else if (check()==='X' || check()==='O') {
+            showBoard('The winner is ' + check());
+        }
+    }
 
     const isBlank = (index) => {
         if (board[index] == '') {
@@ -47,7 +69,7 @@ const gameBoard = (() => {
         else return false;
     }
 
-    return {board, push, showBoard, check, isBlank};
+    return {board, moveCounter,push, showBoard, check, presentResult, isBlank};
 }
 )();
 
@@ -88,5 +110,5 @@ function markBoard(e) {
     })
     gameBoard.push(gridLocation-1, currentMark);
     gameBoard.check();
-    console.log(currentMark);
+    gameBoard.presentResult(currentMark);
 };
