@@ -105,3 +105,19 @@ h1 {
 	border-left: 1px solid gray;
 	border-right: 1px solid gray;
 } 
+
+#gameStatusContainer {
+	display:block;
+}
+
+#playerForm {
+	display: none;
+	border: 3px solid #776d6d;
+	
+}
+
+.formContainer {
+	padding: 10px;
+	max-width: 400px;
+	margin: auto;
+}

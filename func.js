@@ -1,4 +1,5 @@
 
+//--------------------GAMEBOARD CONTROL---------------------
 const gameBoard = (() => {
     let board = ['','','','','','','','',''];
     let moveCounter=0;
@@ -55,7 +56,7 @@ const gameBoard = (() => {
             showBoard('Result= Tie!')
         }
         else if (check()===false) {
-            console.log(currentMove + 's turn');
+            showBoard(currentMove + 's turn');
         }
         else if (check()==='X' || check()==='O') {
             showBoard('The winner is ' + check());
@@ -73,13 +74,23 @@ const gameBoard = (() => {
 }
 )();
 
-
+//--------------------PLAYER CONTROL---------------------
 const player = (pname,choice) => {
-    return {pname, choice}
+
+    return {pname, choice, playerSetup}
 }
+
+//--------------------GAME CONTROL---------------------
+
+
+
 
 const gameControl = (() => {
     let count = 0;
+
+    const setup = () => {
+        displayControl.playerForm();
+    }
     
     const play = () => {
         if (count % 2 == 0) {
@@ -89,16 +100,35 @@ const gameControl = (() => {
         else count++;
             return 'O';
     }
-    return {play};
+    return {play, setup};
 }
 )();
+
+startBtn = document.querySelector('#startBtnContainer');
+startBtn.addEventListener('click', gameControl.setup);
+
 
 //add onclick event to all grid squares
 gridItems = Array.from(document.querySelector('.grid-container').getElementsByTagName("button"));
 gridItems.forEach(item => item.addEventListener('click', markBoard));
 
 
+//--------------------DISPLAY CONTROL---------------------
+
 //square onclick handler
+
+
+const displayControl = (() => {
+    playerForm = () => {
+        playerFormEl = document.querySelector('#playerForm');
+        playerFormEl.style.display = "block";
+
+    }
+
+    return {playerForm}
+
+})();
+
 function markBoard(e) { 
     let currentMark = gameControl.play();
     let gridLocation= e.target.className;
@@ -106,6 +136,7 @@ function markBoard(e) {
         if (item.className === gridLocation) {
             item.innerHTML = currentMark;
             item.removeEventListener("click", markBoard);
+            
         }
     })
     gameBoard.push(gridLocation-1, currentMark);
