@@ -82,14 +82,15 @@ const player = (pname,choice) => {
 
 //--------------------GAME CONTROL---------------------
 
-
-
-
 const gameControl = (() => {
     let count = 0;
 
     const setup = () => {
         displayControl.playerForm();
+    }
+
+    const setBoard = () => {
+        setTheBoard();
     }
     
     const play = () => {
@@ -100,18 +101,26 @@ const gameControl = (() => {
         else count++;
             return 'O';
     }
-    return {play, setup};
+    return {play, setup, setBoard};
 }
 )();
 
-startBtn = document.querySelector('#startBtnContainer');
-startBtn.addEventListener('click', gameControl.setup);
 
+//Player Form Control
 
-//add onclick event to all grid squares
-gridItems = Array.from(document.querySelector('.grid-container').getElementsByTagName("button"));
-gridItems.forEach(item => item.addEventListener('click', markBoard));
+const formControl = (() =>{
 
+    
+})
+
+function onSub() {
+    playerOneName = document.querySelector('#playerOne').value;
+    playerTwoName = document.querySelector('#playerTwo').value;
+    setTheBoard();
+}
+
+submitEl = document.querySelector('#nameSubmitBtn');
+submitEl.addEventListener('click',onSub);
 
 //--------------------DISPLAY CONTROL---------------------
 
@@ -125,21 +134,43 @@ const displayControl = (() => {
 
     }
 
-    return {playerForm}
+    // boardReady = () => {
+    //     //add onclick event to all grid squares
+
+    //     console.log('made it again')
+    // }
+
+    markBoard = (e) => {
+        console.log('DDDDDDDDDDDDDDDD')
+        let currentMark = gameControl.play();
+        let gridLocation= e.target.className;
+        gridItems.forEach(item => {
+            if (item.className === gridLocation) {
+                item.innerHTML = currentMark;
+                item.removeEventListener("click", markBoard);
+                
+            }
+        })
+        gameBoard.push(gridLocation-1, currentMark);
+        gameBoard.check();
+        gameBoard.presentResult(currentMark);
+    }
+    return {playerForm, markBoard}
 
 })();
 
-function markBoard(e) { 
-    let currentMark = gameControl.play();
-    let gridLocation= e.target.className;
-    gridItems.forEach(item => {
-        if (item.className === gridLocation) {
-            item.innerHTML = currentMark;
-            item.removeEventListener("click", markBoard);
-            
-        }
-    })
-    gameBoard.push(gridLocation-1, currentMark);
-    gameBoard.check();
-    gameBoard.presentResult(currentMark);
-};
+
+//Start Button 
+startBtn = document.querySelector('#startBtnContainer');
+startBtn.addEventListener('click', gameControl.setup);
+
+
+gridItems = Array.from(document.querySelector('.grid-container').getElementsByTagName("button"));
+gridItems.forEach(item => item.addEventListener('click', displayControl.markBoard));
+console.log('fuckme')   
+
+
+
+
+
+
