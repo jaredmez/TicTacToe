@@ -161,7 +161,7 @@ const displayControl = (() => {
 
 
 //Start Button 
-startBtn = document.querySelector('#startBtnContainer');
+startBtn = document.querySelector('.startBtn');
 startBtn.addEventListener('click', gameControl.setup);
 
 
